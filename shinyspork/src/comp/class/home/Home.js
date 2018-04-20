@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import injectSheet from 'react-jss';
 
-class Home extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header></header>
-        <body>This is Home page</body>
-      </div>
-    );
-  }
+const styles = {
+  root: {
+    '& button': {
+      fontWeight: 'bold'
+    }    
+  },
+  button: {
+    backgroundColor: 'red'
+  },  
 }
 
-export default Home;
+const Home = ({classes}) => (
+  <div className={classes.root}>
+    <button className={classes.button}>Click Me</button>
+  </div>
+)
+
+export default injectSheet(styles)(Home);
