@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Route } from 'react-router-dom';
 
 import Home from './Home.js';
 import Demo from './Demo.js';
@@ -7,10 +7,10 @@ import Demo from './Demo.js';
 class App extends Component {
   render() {
     return (
-      <Router history={hashHistory}>
-        <Route path="/" component={Home} />
-        <Route path="/demo" component={Demo} />
-      </Router>
+      <React.Fragment>
+        <Route exact path='/' component={Home}/>
+        <Route path='/demo' component={Demo}/>
+      </React.Fragment>
     );
   }
 }
