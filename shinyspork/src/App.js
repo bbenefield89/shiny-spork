@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Route, hashHistory } from 'react-router';
+
 import Home from './Home.js';
+import Demo from './Demo.js';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Home />
-      </div>
+      <Router history={hashHistory}>
+        <Route path="/" component={Home} />
+        <Route path="/demo" component={Demo} />
+      </Router>
     );
   }
 }
