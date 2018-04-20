@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-
-const styles = {
-  root: {
-    '& button': {
-      fontWeight: 'bold'
-    }    
-  },
-  button: {
-    backgroundColor: 'red'
-  },  
-}
+import styles from './styles';
 
 const Home = ({classes}) => (
   <div className={classes.root}>
