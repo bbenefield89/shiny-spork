@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-
-// noteList json
-import noteList from './noteList.js';
+import PropTypes from 'prop-types';
+import Note from './Note';
 
 class NoteContainer extends Component {
   render() {
-      console.log(noteList)
+    const noteList = this.props.noteList;
+    console.log(this.props.noteList);
     return (
-      <div>
-        
-      </div>
-    );
+      <React.Fragment>
+        noteList.map((note) => (
+          <Note note={note}/>
+        ))
+      </React.Fragment>
+    )
   }
+}
+
+NoteContainer.propTypes = {
+  noteList: PropTypes.array.isRequired
 }
 
 export default NoteContainer;
