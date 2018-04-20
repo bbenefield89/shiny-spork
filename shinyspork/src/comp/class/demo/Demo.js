@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-// noteList json
-import noteList from '../../noteList.js';
-
 // components
 import NoteContainer from '../notecontainer/NoteContainer.js';
+
+// noteList json
+const noteList = require('../../noteList.js');
 
 class Demo extends Component {
   render() {
