@@ -9,10 +9,10 @@ const styles = {
 }
 
 const Note = (props) => {
-  let { classes } = props;
+  let { classes, handleClick } = props;
   let { title } = props.note;
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={handleClick}>
       {title}
     </div>
   )

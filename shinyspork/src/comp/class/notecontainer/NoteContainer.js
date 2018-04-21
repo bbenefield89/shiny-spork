@@ -16,7 +16,7 @@ class NoteContainer extends Component {
     const { noteList } = this.props;
     return (
       noteList.map(note => (
-        <Note key={note.id} note={note}/>
+        <Note key={note.id} note={note} handleClick={this.props.handleSelect.bind(this, note.id)}/>
       ))
     )
   }
