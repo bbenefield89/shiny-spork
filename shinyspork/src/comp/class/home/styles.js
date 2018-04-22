@@ -1,12 +1,17 @@
 const styles = {
-  root: {
-    '& button': {
-      fontWeight: 'bold'
-    }
+  nav_header: {
+    background: {
+      color: '#eee',
+    },
+
+    // '& $nav_header__nav': {
+    //   background: {
+    //     color: 'red',
+    //   },
+    // },
   },
-  button: {
-    backgroundColor: 'red'
-  },
+
+  nav_header__nav: {},
 }
 
 export default styles;
