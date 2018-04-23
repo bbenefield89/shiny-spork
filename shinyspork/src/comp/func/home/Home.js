@@ -4,7 +4,7 @@ import styles from './styles';
 
 const showButtons = true;
 const navLinks = [
-  { 
+  {
     name: 'Demo',
     url : '/demo',
   },{
@@ -37,15 +37,17 @@ const Home = ({classes}) => (
                 navLinks.map(link => {
                   return (
                     <li className={ classes.nav_header__nav__list__item }>
-                      <a href={ link.url }>{ link.name }</a>
+                      <a className={classes.nav_header__nav__list__item__link } href={ link.url }>{ link.name }</a>
                     </li>
                 )})
               }
             </ul>
             ) : (
             // else only render `Demo`
-            <ul>
-              <li><a href="/demo">Demo</a></li>
+              <ul className={classes.nav_header__nav__list}>
+                <li className={classes.nav_header__nav__list__item}>
+                  <a className={classes.nav_header__nav__list__item__link} href="/demo">Demo</a>
+                </li>
             </ul>
             )
         }
