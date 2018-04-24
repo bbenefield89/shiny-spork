@@ -9,14 +9,19 @@ const styles = {
 }
 
 class NoteContent extends Component {
+  handleChange = (input) => {
+    this.props.handleChange(input)
+  }
   render() {
     let { title, content, classes } = this.props;
     return (
       <div className={classes.root}>
-        <h3>Title: {title}</h3>
-        <h3>Content:</h3>
-        <p>{content}</p>
-        <button>Save</button>
+        <form>
+          <input name='title' type='text' value={title} onChange={this.handleChange.bind(this, this.refs.inputTitle)} ref="inputTitle" />
+          <h3>Content:</h3>
+          <input name='content' type='text' value={content} onChange={this.handleChange.bind(this, this.refs.inputContent)} ref="inputContent" />
+          
+        </form>
       </div>
     )
   }
