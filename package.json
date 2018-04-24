@@ -1,9 +1,0 @@
-{
-  "name": "shiny-spork",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/bbenefield89/shiny-spork.git",
-  "author": "Brandon Benefield <bsquared18@gmail.com>",
-  "license": "MIT",
-  "dependencies": {}
-}
