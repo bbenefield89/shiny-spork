@@ -5,7 +5,5 @@
   "repository": "https://github.com/bbenefield89/shiny-spork.git",
   "author": "Brandon Benefield <bsquared18@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.16.3"
-  }
+  "dependencies": {}
 }
