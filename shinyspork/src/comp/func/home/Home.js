@@ -34,9 +34,9 @@ const Home = ({classes}) => (
             <ul className={ classes.nav_header__nav__list }>
               {
                 // map through `navLinks`
-                navLinks.map(link => {
+                navLinks.map((link, i) => {
                   return (
-                    <li className={ classes.nav_header__nav__list__item }>
+                    <li key={i} className={ classes.nav_header__nav__list__item }>
                       <a className={classes.nav_header__nav__list__item__link } href={ link.url }>{ link.name }</a>
                     </li>
                 )})
