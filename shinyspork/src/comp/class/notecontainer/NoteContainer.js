@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import injectSheet from 'react-jss';
 
-// noteList json
-import noteList from './noteList.js';
+// Components
+import Note from './Note';
+
+const styles = {
+  root: {
+    backgroundColor: 'green'
+  }, 
+}
 
 class NoteContainer extends Component {
   render() {
-      console.log(noteList)
+    const { noteList } = this.props;
     return (
-      <div>
-        
-      </div>
-    );
+      noteList.map(note => (
+        <Note key={note.id} note={note} handleClick={this.props.handleSelect.bind(this, note.id)}/>
+      ))
+    )
   }
 }
 
-export default NoteContainer;
+NoteContainer.propTypes = {
+  noteList: PropTypes.array.isRequired
+}
+
+export default injectSheet(styles)(NoteContainer);
