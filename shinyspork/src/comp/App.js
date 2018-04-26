@@ -5,12 +5,22 @@ import Home from './func/home/Home';
 import Demo from './class/demo/Demo';
 
 class App extends Component {
+  state = { users: [] }
+
+  componentDidMount() {
+    fetch('/users')
+      .then(res => res.json())
+      .then(users => this.setState({ users }));
+  }
+
   render() {
     return (
-      <React.Fragment>
-        <Route exact path='/' component={Home}/>
-        <Route path='/demo' component={Demo}/>
-      </React.Fragment>
+      <div className="App">
+        <h1>Users</h1>
+        {this.state.users.map(user =>
+          <div key={user.id}>{user.username}</div>
+        )}
+      </div>
     );
   }
 }
