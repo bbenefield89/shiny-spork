@@ -3,16 +3,6 @@ var router = express.Router();
 
 // database connection
 const db = require('../database/connection');
-/*
-** `User` represents `ShinySporkModel` from `schema.js`
-** we have access to this because of `module.exports = ShinySporkModel;` inside of `schema.js`
-*/
-// const User = require('../database//schema.js');
-/*
-** `brandon` var will create a new user
-** check `newuser.js` for details
-*/
-// const brandon = require('../database/newuser.js');
 
 // schemas
 const NoteSchema = require('../database/schemas/noteschema');
@@ -20,30 +10,19 @@ const NoteSchema = require('../database/schemas/noteschema');
 // models
 const NewNote = require('../database/models/notemodel');
 
-// THIS IS HOW WE CAN SAVE DATA TO THE DB
-// NewNote.save(function (err) {
-//   if (err) throw err;
-
-//   console.log('New note saved successfully');
-// });
-
-// return all users
-router.get('/', function(req, res, next) {
+// return all of a users notes
+router.get('/all', function(req, res, next) {
   NoteSchema.find()
     .then(data => res.json(data));
 });
 
-// return all the notes from a user
-router.get('/:userid', function(req, res, next) {
-  User.find({ _id: req.params.userid })
-    .then(data => {
-      res.json(data);
-    });
-})
+router.get('/new', function (req, res, next) {
+  res.json(req.session.id);
+});
 
 // return a specific note
 router.get('/:noteid', function (req, res, next) {
-  User.find({ _id: req.params.noteid })
+  NoteSchema.find({ _id: req.params.noteid })
     .then(data => {
       res.json(data);
     });
