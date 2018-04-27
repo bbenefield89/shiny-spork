@@ -29,7 +29,7 @@ const NewNote = require('../database/models/notemodel');
 
 // return all users
 router.get('/', function(req, res, next) {
-  User.find()
+  NoteSchema.find()
     .then(data => res.json(data));
 });
 
