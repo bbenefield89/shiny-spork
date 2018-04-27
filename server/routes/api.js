@@ -14,12 +14,18 @@ const User = require('../database/schema.js');
 */
 // const brandon = require('../database/newuser.js');
 
-/* GET home page. */
+// return all users
 router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Express' });
-
   User.find()
     .then(data => res.json(data));
 });
+
+// return all the notes from a user
+router.get('/:userid', function(req, res, next) {
+  User.find({ _id: req.params.userid })
+    .then(data => {
+      res.json(data);
+    });
+})
 
 module.exports = router;
