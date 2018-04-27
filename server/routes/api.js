@@ -28,4 +28,12 @@ router.get('/:userid', function(req, res, next) {
     });
 })
 
+// return a specific note
+router.get('/:noteid', function (req, res, next) {
+  User.find({ _id: req.params.noteid })
+    .then(data => {
+      res.json(data);
+    });
+})
+
 module.exports = router;
