@@ -20,10 +20,22 @@ router.get('/all', function(req, res, next) {
     res.send(notes)
   })
 });
-
 // route to create a new note
-router.get('/new', function (req, res, next) {
-  res.send('new');
+router.post('/new', function (req, res, next) {
+  let newNote = new NoteModel({
+    user_id     : '5ae3db07aa1f85c210e57953', // to-do: apply condition to get either 'demo' id or authenticated user's user_id
+    user_name   : 'demo', // to-do: apply condition to get either 'demo' or authenticated user's user_name
+    note_title  : req.body.note_title,
+    note_content: req.body.note_content,
+    date_created: Date.now(),
+  })
+  newNote.save(function(err, dbRes) {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      res.send(dbRes)
+    }
+  })
 });
 
 // return a specific note
