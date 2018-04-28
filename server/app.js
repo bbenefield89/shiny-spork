@@ -39,6 +39,7 @@ app.post('/', (req, res) => {
   res.redirect('/api/all');
 })
 
+// allows us to use the `/api/` route
 app.use('/api', api);
 
 // catch 404 and forward to error handler
