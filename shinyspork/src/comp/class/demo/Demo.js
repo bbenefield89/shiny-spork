@@ -44,11 +44,11 @@ class Demo extends Component {
     })
   }
   render() {
-    let { id, title, content } = this.state;
+    let { notes, id, title, content } = this.state;
     return (
       <div>
         <button onClick={this.createNote}>New</button>
-        <NoteContainer noteList={noteList} handleSelect={this.handleSelect}/>
+        <NoteContainer notes={notes} handleSelect={this.handleSelect}/>
         <NoteContent title={title} content={content} handleChange={this.handleChange}/>
       </div>
     );
