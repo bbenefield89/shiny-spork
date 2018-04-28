@@ -28,10 +28,13 @@ app.use(cookieParser());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', (req, res) => {
+  res.render('index');
+});
 app.post('/', (req, res) => {
-  req.session.username = req.body.username;
+  req.session.username = req.body.name;
   req.session.password = req.body.password;
-  res.end('done');
+  res.redirect('/api/all');
 })
 
 app.use('/api', api);
