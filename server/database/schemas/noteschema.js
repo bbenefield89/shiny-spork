@@ -10,7 +10,4 @@ const NoteSchema = new Schema({
   date_created: { type: Date, required: true },
 });
 
-// compile model from schema
-const NoteModel = mongoose.model('NoteModel', NoteSchema);
-
-module.exports = NoteModel;
+module.exports = NoteSchema;

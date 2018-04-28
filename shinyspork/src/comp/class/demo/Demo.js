@@ -11,10 +11,16 @@ class Demo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      notes: [],
       id: null,
       title: '',
       content: ''
     }
+  }
+  componentDidMount() {
+    fetch('/api/all')
+    .then((res) => res.json())
+    .then((notes) => this.setState({ notes })
   }
   handleSelect = (id) => {
     let selectedNote = noteList.find(note => note.id === id)
