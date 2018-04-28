@@ -6,6 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const session = require('express-session');
 
+const UserSchema = require('./database/schemas/userschema');
+const UserModel = require('./database/models/usermodel');
+
+// UserModel.save()
+
 var api = require('./routes/api');
 
 var app = express();
@@ -22,6 +27,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/', (req, res) => {
+  req.session.username = req.body.username;
+  req.session.password = req.body.password;
+  res.end('done');
+})
 
 app.use('/api', api);
 
