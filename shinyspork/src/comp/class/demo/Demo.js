@@ -38,7 +38,11 @@ class Demo extends Component {
   }
 
   handleSave = (_id) => {
-    this.saveNote(_id)
+    this.updateNote(_id, 'save')
+  }
+
+  handleDelete = (_id) => {
+    this.updateNote(_id, 'delete')
   }
 
   getNotes = () => {
@@ -73,9 +77,9 @@ class Demo extends Component {
     })
   }
 
-  saveNote = (_id) => {
+  updateNote = (_id, action) => {
     let req = {
-      action: 'update',
+      action: action,
       data: {
         _id: _id,
         note_title: this.state.note_title,
@@ -92,7 +96,7 @@ class Demo extends Component {
         return res.json()
         .then(error => console.log(error.message))//to-do: alert user with error message
       }
-      // Refresh notes after saveing a note successfully
+      // Refresh notes after saving/deleting a note successfully
       this.getNotes()
     })
   }
@@ -101,7 +105,7 @@ class Demo extends Component {
     return (
       <div>
         <button onClick={this.createNote}>New</button>
-        <NoteContainer notes={notes} handleSelect={this.handleSelect}/>
+        <NoteContainer notes={notes} handleSelect={this.handleSelect} handleDelete={this.handleDelete}/>
         <NoteContent title={note_title} content={note_content} handleChange={this.handleChange} handleSave={this.handleSave.bind(this, _id)}/>
       </div>
     );

@@ -41,8 +41,18 @@ router.post('/new', function (req, res, next) {
 // edit/remove note
 router.post('/note', function (req, res, next) {
   let { action, data } = req.body
-  if ( action === 'update'){
+  if ( action === 'save') {
     NoteModel.findByIdAndUpdate(data._id, data, function(err, dbRes) {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        res.send(dbRes)
+      }
+    })
+  }
+
+  if (action === 'delete') {
+    NoteModel.findByIdAndRemove(data._id, function(err, dbRes) {
       if (err) {
         res.status(500).send(err)
       } else {
