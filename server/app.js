@@ -6,6 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const session = require('express-session');
 
+const UserSchema = require('./database/schemas/userschema');
+const UserModel = require('./database/models/usermodel');
+
+// UserModel.save()
+
 var api = require('./routes/api');
 
 var app = express();
@@ -23,6 +28,18 @@ app.use(cookieParser());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// get `/`
+app.get('/', (req, res) => {
+  res.render('index');
+});
+// post `/`
+app.post('/', (req, res) => {
+  req.session.username = req.body.name;
+  req.session.password = req.body.password;
+  res.redirect('/api/all');
+})
+
+// allows us to use the `/api/` route
 app.use('/api', api);
 
 // catch 404 and forward to error handler
