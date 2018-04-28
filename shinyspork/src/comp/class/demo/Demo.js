@@ -12,9 +12,9 @@ class Demo extends Component {
     super(props);
     this.state = {
       notes: [],
-      id: null,
-      title: '',
-      content: ''
+      _id: null,
+      note_title: '',
+      note_content: ''
     }
   }
   componentDidMount() {
@@ -22,12 +22,12 @@ class Demo extends Component {
     .then((res) => res.json())
     .then((notes) => this.setState({ notes }))
   }
-  handleSelect = (id) => {
-    let selectedNote = noteList.find(note => note.id === id)
+  handleSelect = (_id) => {
+    let selectedNote = this.state.notes.find(note => note._id === _id)
     this.setState({
-      id: id,
-      title: selectedNote.title,
-      content: selectedNote.content
+      _id,
+      note_title: selectedNote.note_title,
+      note_content: selectedNote.note_content
     })
   }
   createNote = (e) => {
@@ -44,12 +44,12 @@ class Demo extends Component {
     })
   }
   render() {
-    let { notes, id, title, content } = this.state;
+    let { notes, _id, note_title, note_content } = this.state;
     return (
       <div>
         <button onClick={this.createNote}>New</button>
         <NoteContainer notes={notes} handleSelect={this.handleSelect}/>
-        <NoteContent title={title} content={content} handleChange={this.handleChange}/>
+        <NoteContent title={note_title} content={note_content} handleChange={this.handleChange}/>
       </div>
     );
   }
