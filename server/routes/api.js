@@ -17,7 +17,7 @@ router.get('/all', function(req, res, next) {
 });
 
 router.get('/new', function (req, res, next) {
-  res.json(req.session.id);
+  res.send('new');
 });
 
 // return a specific note
