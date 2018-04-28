@@ -17,9 +17,9 @@ class NoteContent extends Component {
     return (
       <div className={classes.root}>
         <form>
-          <input name='title' type='text' value={title} onChange={this.handleChange.bind(this, this.refs.inputTitle)} ref="inputTitle" />
+          <input name='note_title' type='text' value={title} onChange={this.handleChange.bind(this, this.refs.inputTitle)} ref="inputTitle" />
           <h3>Content:</h3>
-          <input name='content' type='text' value={content} onChange={this.handleChange.bind(this, this.refs.inputContent)} ref="inputContent" />
+          <input name='note_content' type='text' value={content} onChange={this.handleChange.bind(this, this.refs.inputContent)} ref="inputContent" />
           
         </form>
       </div>

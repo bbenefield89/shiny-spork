@@ -5,11 +5,6 @@ import Home from './func/home/Home';
 import Demo from './class/demo/Demo';
 
 class App extends Component {
-  componentDidMount() {
-    fetch('/').then(
-      (res) => console.log(res)
-    )
-  }
   render() {
     return (
       <React.Fragment>

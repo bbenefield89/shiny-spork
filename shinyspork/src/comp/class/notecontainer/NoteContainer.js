@@ -13,17 +13,17 @@ const styles = {
 
 class NoteContainer extends Component {
   render() {
-    const { noteList } = this.props;
+    const { notes } = this.props;
     return (
-      noteList.map(note => (
-        <Note key={note.id} note={note} handleClick={this.props.handleSelect.bind(this, note.id)}/>
+      notes.map(note => (
+        <Note key={note._id} title={note.note_title} handleClick={this.props.handleSelect.bind(this, note._id)}/>
       ))
     )
   }
 }
 
 NoteContainer.propTypes = {
-  noteList: PropTypes.array.isRequired
+  notes: PropTypes.array.isRequired
 }
 
 export default injectSheet(styles)(NoteContainer);

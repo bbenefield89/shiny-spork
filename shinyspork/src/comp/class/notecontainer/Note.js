@@ -10,7 +10,7 @@ const styles = {
 
 const Note = (props) => {
   let { classes, handleClick } = props;
-  let { title } = props.note;
+  let { title } = props;
   return (
     <div className={classes.root} onClick={handleClick}>
       {title}
@@ -18,7 +18,7 @@ const Note = (props) => {
   )
 }
 Note.propTypes = {
-  note: PropTypes.object.isRequired
+  title: PropTypes.string.isRequired
 }
 
 export default injectSheet(styles)(Note);

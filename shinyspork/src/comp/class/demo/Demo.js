@@ -11,17 +11,23 @@ class Demo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
-      title: '',
-      content: ''
+      notes: [],
+      _id: null,
+      note_title: '',
+      note_content: ''
     }
   }
-  handleSelect = (id) => {
-    let selectedNote = noteList.find(note => note.id === id)
+  componentDidMount() {
+    fetch('/api/all')
+    .then((res) => res.json())
+    .then((notes) => this.setState({ notes }))
+  }
+  handleSelect = (_id) => {
+    let selectedNote = this.state.notes.find(note => note._id === _id)
     this.setState({
-      id: id,
-      title: selectedNote.title,
-      content: selectedNote.content
+      _id,
+      note_title: selectedNote.note_title,
+      note_content: selectedNote.note_content
     })
   }
   createNote = (e) => {
@@ -38,12 +44,12 @@ class Demo extends Component {
     })
   }
   render() {
-    let { id, title, content } = this.state;
+    let { notes, _id, note_title, note_content } = this.state;
     return (
       <div>
         <button onClick={this.createNote}>New</button>
-        <NoteContainer noteList={noteList} handleSelect={this.handleSelect}/>
-        <NoteContent title={title} content={content} handleChange={this.handleChange}/>
+        <NoteContainer notes={notes} handleSelect={this.handleSelect}/>
+        <NoteContent title={note_title} content={note_content} handleChange={this.handleChange}/>
       </div>
     );
   }
