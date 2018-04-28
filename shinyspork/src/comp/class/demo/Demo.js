@@ -21,11 +21,7 @@ class Demo extends Component {
   componentDidMount() {
     this.getNotes()
   }
-  getNotes = () => {
-    fetch('/api/all')
-    .then((res) => res.json())
-    .then((notes) => this.setState({ notes }))
-  }
+  
   handleSelect = (_id) => {
     let selectedNote = this.state.notes.find(note => note._id === _id)
     this.setState({
@@ -34,6 +30,23 @@ class Demo extends Component {
       note_content: selectedNote.note_content
     })
   }
+
+  handleChange = (input) => {
+    this.setState({
+      [input.name]: input.value
+    })
+  }
+
+  handleSave = (_id) => {
+    this.saveNote(_id)
+  }
+
+  getNotes = () => {
+    fetch('/api/all')
+    .then((res) => res.json())
+    .then((notes) => this.setState({ notes }))
+  }
+
   createNote = () => {
     let newNote = {
       note_title: '[New note title]',
@@ -58,22 +71,38 @@ class Demo extends Component {
         note_content: ''
       })
     })
-
-    
   }
-  handleChange = (input) => {
-    this.setState({
-      [input.name]: input.value
+
+  saveNote = (_id) => {
+    let req = {
+      action: 'update',
+      data: {
+        _id: _id,
+        note_title: this.state.note_title,
+        note_content: this.state.note_content
+      } 
+    }
+    fetch(`/api/note`, { 
+      method: 'POST', 
+      body: JSON.stringify(req),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.json()
+        .then(error => console.log(error.message))//to-do: alert user with error message
+      }
+      // Refresh notes after saveing a note successfully
+      this.getNotes()
     })
   }
   render() {
     let { notes, _id, note_title, note_content } = this.state;
-    console.log(notes)
     return (
       <div>
         <button onClick={this.createNote}>New</button>
         <NoteContainer notes={notes} handleSelect={this.handleSelect}/>
-        <NoteContent title={note_title} content={note_content} handleChange={this.handleChange}/>
+        <NoteContent title={note_title} content={note_content} handleChange={this.handleChange} handleSave={this.handleSave.bind(this, _id)}/>
       </div>
     );
   }

@@ -22,6 +22,7 @@ class NoteContent extends Component {
           <input name='note_content' type='text' value={content} onChange={this.handleChange.bind(this, this.refs.inputContent)} ref="inputContent" />
           
         </form>
+        <button onClick={this.props.handleSave}>Save</button>
       </div>
     )
   }
