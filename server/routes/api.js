@@ -16,7 +16,7 @@ router.get('/all', function(req, res, next) {
   const _id = 0;
   
   // returns all the `notes` from `user_name` and excludes the `_id`
-  NoteModel.find({}, (notes) => {
+  NoteModel.find({}, (_, notes) => {
     res.send(notes)
   })
 });
@@ -28,7 +28,7 @@ router.get('/new', function (req, res, next) {
 
 // return a specific note
 router.get('/:noteid', function (req, res, next) {
-  NoteModel.find({ _id: req.params.noteid }, (note) => {
+  NoteModel.find({ _id: req.params.noteid }, (_, note) => {
     res.send(note)
   })
 })

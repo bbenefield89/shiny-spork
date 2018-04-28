@@ -20,7 +20,7 @@ class Demo extends Component {
   componentDidMount() {
     fetch('/api/all')
     .then((res) => res.json())
-    .then((notes) => this.setState({ notes })
+    .then((notes) => this.setState({ notes }))
   }
   handleSelect = (id) => {
     let selectedNote = noteList.find(note => note.id === id)
