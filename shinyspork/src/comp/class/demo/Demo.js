@@ -16,8 +16,12 @@ class Demo extends Component {
       note_title: '',
       note_content: ''
     }
+    this.createNote = this.createNote.bind(this)
   }
   componentDidMount() {
+    this.getNotes()
+  }
+  getNotes = () => {
     fetch('/api/all')
     .then((res) => res.json())
     .then((notes) => this.setState({ notes }))
@@ -30,13 +34,32 @@ class Demo extends Component {
       note_content: selectedNote.note_content
     })
   }
-  createNote = (e) => {
-    e.preventDefault();
-    this.setState({
-      id: noteList.length,
-      title: '[New note title]',
-      content: 'Your awesome note here'
+  createNote = () => {
+    let newNote = {
+      note_title: '[New note title]',
+      note_content: '',
+    }
+
+    fetch('/api/new', { 
+      method: 'POST', 
+      body: JSON.stringify(newNote),
+      headers: { 'Content-Type': 'application/json' }
     })
+    .then(res => {
+      if (!res.ok) {
+        return res.json()
+        .then(error => console.log(error.message))//to-do: alert user with error message
+      }
+      // Refresh notes after creating a new note successfully
+      this.getNotes()
+      // Select the new note, ready for edit
+      this.setState({
+        note_title: '[New note title]',
+        note_content: ''
+      })
+    })
+
+    
   }
   handleChange = (input) => {
     this.setState({
@@ -45,6 +68,7 @@ class Demo extends Component {
   }
   render() {
     let { notes, _id, note_title, note_content } = this.state;
+    console.log(notes)
     return (
       <div>
         <button onClick={this.createNote}>New</button>
