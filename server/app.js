@@ -28,9 +28,11 @@ app.use(cookieParser());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// get `/`
 app.get('/', (req, res) => {
   res.render('index');
 });
+// post `/`
 app.post('/', (req, res) => {
   req.session.username = req.body.name;
   req.session.password = req.body.password;
