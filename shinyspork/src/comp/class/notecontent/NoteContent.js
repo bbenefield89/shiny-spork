@@ -26,6 +26,7 @@ class NoteContent extends Component {
           type='content'
           handleChange={({ value }) => this.props.handleChange({value}, 'note_content')}
         />
+        <button onClick={this.props.handleSave}>Save</button>
       </div>
     )
   }

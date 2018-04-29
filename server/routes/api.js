@@ -38,11 +38,28 @@ router.post('/new', function (req, res, next) {
   })
 });
 
-// return a specific note
-router.get('/:noteid', function (req, res, next) {
-  NoteModel.find({ _id: req.params.noteid }, (_, note) => {
-    res.send(note)
-  })
+// edit/remove note
+router.post('/note', function (req, res, next) {
+  let { action, data } = req.body
+  if ( action === 'save') {
+    NoteModel.findByIdAndUpdate(data._id, data, function(err, dbRes) {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        res.send(dbRes)
+      }
+    })
+  }
+
+  if (action === 'delete') {
+    NoteModel.findByIdAndRemove(data._id, function(err, dbRes) {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        res.send(dbRes)
+      }
+    })
+  }
 })
 
 module.exports = router;
