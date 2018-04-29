@@ -1,11 +1,56 @@
 import React, { Component } from 'react';
+import { Value } from 'slate';
 
 // components
 import NoteContainer from '../notecontainer/NoteContainer.js';
 import NoteContent from '../notecontent/NoteContent.js';
 
-// noteList json
-const noteList = require('../../noteList.js');
+// Initial note content, blank text
+const existingNoteValue = JSON.parse(localStorage.getItem('content'))
+const initialNoteContent = Value.fromJSON(
+  existingNoteValue || {
+  document: {
+    nodes: [
+      {
+        object: 'block',
+        type: 'paragraph',
+        nodes: [
+          {
+            object: 'text',
+            leaves: [
+              {
+                text: 'A line of text in a paragraph.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+})
+
+const existingTitleValue = JSON.parse(localStorage.getItem('title'))
+const initialNoteTitle = Value.fromJSON(
+  existingTitleValue || {
+  document: {
+    nodes: [
+      {
+        object: 'block',
+        type: 'paragraph',
+        nodes: [
+          {
+            object: 'text',
+            leaves: [
+              {
+                text: 'A line of text in a paragraph.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+})
 
 class Demo extends Component {
   constructor(props) {
@@ -13,8 +58,8 @@ class Demo extends Component {
     this.state = {
       notes: [],
       _id: null,
-      note_title: '',
-      note_content: ''
+      note_title: initialNoteTitle,
+      note_content: initialNoteContent
     }
     this.createNote = this.createNote.bind(this)
   }
@@ -61,14 +106,13 @@ class Demo extends Component {
 
     
   }
-  handleChange = (input) => {
+  handleChange = ({value}, inputType) => {
     this.setState({
-      [input.name]: input.value
+      [inputType]: value
     })
   }
   render() {
     let { notes, _id, note_title, note_content } = this.state;
-    console.log(notes)
     return (
       <div>
         <button onClick={this.createNote}>New</button>
