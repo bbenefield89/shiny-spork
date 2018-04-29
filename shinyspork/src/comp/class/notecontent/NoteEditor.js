@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 
 import { Editor } from 'slate-react';
+import Plain from 'slate-plain-serializer';
 
 const styles = {
   root: {
@@ -39,7 +40,7 @@ class NoteEditor extends Component {
   onChange = ({ value }) => {
     // Check to see if the document has changed before saving.
     if (value.document !== this.props.value.document) {
-      const storedValue = JSON.stringify(value.toJSON())
+      const storedValue = Plain.serialize(value)
       localStorage.setItem(this.props.type, storedValue)
     }
     this.props.handleChange({ value })

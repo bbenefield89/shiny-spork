@@ -1,56 +1,21 @@
 import React, { Component } from 'react';
 import { Value } from 'slate';
+import Plain from 'slate-plain-serializer';
 
 // components
 import NoteContainer from '../notecontainer/NoteContainer.js';
 import NoteContent from '../notecontent/NoteContent.js';
 
 // Initial note content, blank text
-const existingNoteValue = JSON.parse(localStorage.getItem('content'))
-const initialNoteContent = Value.fromJSON(
-  existingNoteValue || {
-  document: {
-    nodes: [
-      {
-        object: 'block',
-        type: 'paragraph',
-        nodes: [
-          {
-            object: 'text',
-            leaves: [
-              {
-                text: 'A line of text in a paragraph.',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-})
+const existingNoteValue = localStorage.getItem('content')
+const initialNoteContent = Plain.deserialize(
+  existingNoteValue || 'A line of text in a paragraph.'
+)
 
-const existingTitleValue = JSON.parse(localStorage.getItem('title'))
-const initialNoteTitle = Value.fromJSON(
-  existingTitleValue || {
-  document: {
-    nodes: [
-      {
-        object: 'block',
-        type: 'paragraph',
-        nodes: [
-          {
-            object: 'text',
-            leaves: [
-              {
-                text: 'A line of text in a paragraph.',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-})
+const existingTitleValue = localStorage.getItem('title')
+const initialNoteTitle = Plain.deserialize(
+  existingTitleValue || 'A line of text in a paragraph.'
+)
 
 class Demo extends Component {
   constructor(props) {
@@ -71,8 +36,8 @@ class Demo extends Component {
     let selectedNote = this.state.notes.find(note => note._id === _id)
     this.setState({
       _id,
-      note_title: selectedNote.note_title,
-      note_content: selectedNote.note_content
+      note_title: Plain.deserialize(selectedNote.note_title),
+      note_content: Plain.deserialize(selectedNote.note_content)
     })
   }
 
@@ -116,8 +81,8 @@ class Demo extends Component {
       this.getNotes()
       // Select the new note, ready for edit
       this.setState({
-        note_title: '[New note title]',
-        note_content: ''
+        note_title: Plain.deserialize(newNote.note_title),
+        note_content: Plain.deserialize(newNote.note_content)
       })
     })
   }
@@ -126,8 +91,8 @@ class Demo extends Component {
       action: action,
       data: {
         _id: _id,
-        note_title: this.state.note_title,
-        note_content: this.state.note_content
+        note_title: Plain.serialize(this.state.note_title),
+        note_content: Plain.serialize(this.state.note_content)
       } 
     }
     fetch(`/api/note`, { 
