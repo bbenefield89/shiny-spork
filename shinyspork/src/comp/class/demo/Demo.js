@@ -6,25 +6,14 @@ import Plain from 'slate-plain-serializer';
 import NoteContainer from '../notecontainer/NoteContainer.js';
 import NoteContent from '../notecontent/NoteContent.js';
 
-// Initial note content, blank text
-const existingNoteValue = localStorage.getItem('content')
-const initialNoteContent = Plain.deserialize(
-  existingNoteValue || 'A line of text in a paragraph.'
-)
-
-const existingTitleValue = localStorage.getItem('title')
-const initialNoteTitle = Plain.deserialize(
-  existingTitleValue || 'A line of text in a paragraph.'
-)
-
 class Demo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       notes: [],
       _id: null,
-      note_title: initialNoteTitle,
-      note_content: initialNoteContent
+      note_title: Plain.deserialize('Note title'),
+      note_content: Plain.deserialize('Note Content')
     }
     this.createNote = this.createNote.bind(this)
   }
@@ -36,8 +25,8 @@ class Demo extends Component {
     let selectedNote = this.state.notes.find(note => note._id === _id)
     this.setState({
       _id,
-      note_title: Plain.deserialize(selectedNote.note_title),
-      note_content: Plain.deserialize(selectedNote.note_content)
+      note_title: Value.fromJSON(selectedNote.note_title),
+      note_content: Value.fromJSON(selectedNote.note_content)
     })
   }
 
@@ -63,8 +52,8 @@ class Demo extends Component {
 
   createNote = () => {
     let newNote = {
-      note_title: '[New note title]',
-      note_content: '',
+      note_title: Plain.deserialize('[New note title]'),
+      note_content: Plain.deserialize(''),
     }
 
     fetch('/api/new', { 
@@ -77,22 +66,28 @@ class Demo extends Component {
         return res.json()
         .then(error => console.log(error.message))//to-do: alert user with error message
       }
-      // Refresh notes after creating a new note successfully
-      this.getNotes()
-      // Select the new note, ready for edit
-      this.setState({
-        note_title: Plain.deserialize(newNote.note_title),
-        note_content: Plain.deserialize(newNote.note_content)
+
+      return res.json()
+      .then(data => {
+        // Refresh notes after creating a new note successfully
+        this.getNotes()
+        // Select the new note, ready for edit
+        this.setState({
+          _id: data._id,
+          note_title: Value.fromJSON(data.note_title),
+          note_content: Value.fromJSON(data.note_content)
+        })
       })
+      
     })
   }
   updateNote = (_id, action) => {
     let req = {
       action: action,
       data: {
-        _id: _id,
-        note_title: Plain.serialize(this.state.note_title),
-        note_content: Plain.serialize(this.state.note_content)
+        _id: this.state._id,
+        note_title: this.state.note_title,
+        note_content: this.state.note_content
       } 
     }
     fetch(`/api/note`, { 
