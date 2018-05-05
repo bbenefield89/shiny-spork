@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 
+import NoteEditor from './NoteEditor';
+
 const styles = {
   root: {
     backgroundColor: 'blue'
@@ -9,27 +11,30 @@ const styles = {
 }
 
 class NoteContent extends Component {
-  handleChange = (input) => {
-    this.props.handleChange(input)
-  }
   render() {
     let { title, content, classes } = this.props;
     return (
       <div className={classes.root}>
-        <form>
-          <input name='note_title' type='text' value={title} onChange={this.handleChange.bind(this, this.refs.inputTitle)} ref="inputTitle" />
-          <h3>Content:</h3>
-          <input name='note_content' type='text' value={content} onChange={this.handleChange.bind(this, this.refs.inputContent)} ref="inputContent" />
-          
-        </form>
+        <NoteEditor
+          value={title}
+          type='title'
+          handleChange={({ value }) => this.props.handleChange({value}, 'note_title')}
+        />
+        <h3>Content:</h3>
+        <NoteEditor
+          value={content}
+          type='content'
+          handleChange={({ value }) => this.props.handleChange({value}, 'note_content')}
+        />
+        <button onClick={this.props.handleSave}>Save</button>
       </div>
     )
   }
 }
 
 NoteContent.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  title: PropTypes.object.isRequired,
+  content: PropTypes.object.isRequired
 }
 
 export default injectSheet(styles)(NoteContent);

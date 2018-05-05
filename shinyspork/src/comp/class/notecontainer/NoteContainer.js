@@ -13,10 +13,10 @@ const styles = {
 
 class NoteContainer extends Component {
   render() {
-    const { notes } = this.props;
+    const { notes, handleSelect, handleDelete } = this.props;
     return (
       notes.map(note => (
-        <Note key={note._id} title={note.note_title} handleClick={this.props.handleSelect.bind(this, note._id)}/>
+        <Note key={note._id} title={note.note_title} handleSelect={handleSelect.bind(this, note._id)} handleDelete={handleDelete.bind(this, note._id)}/>
       ))
     )
   }
