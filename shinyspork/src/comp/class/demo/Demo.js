@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
@@ -7,13 +8,49 @@ import Plain from 'slate-plain-serializer';
 import NoteContainer from '../notecontainer/NoteContainer.js';
 import NoteContent from '../notecontent/NoteContent.js';
 
+// icons
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
+
 const styles = {
   root: {
-    padding: '0.5rem',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'stretch',
+    justifyContent: 'stretch',    
   }, 
+  toolBar: {
+    width: '7%',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: '1rem 0',
+    boxShadow: '1px 0 2px #e2e2e2',
+  },
+  iconPrimary: {
+    backgroundColor: '#2ebd60',
+    color: 'white',
+    borderRadius: '50%',
+    width: '30px',
+    height: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '0.5rem'
+  },
+  iconSecondary: {
+    width: '30px',
+    height: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '0.5rem'
+  }
 }
 
 class Demo extends Component {
@@ -130,8 +167,17 @@ class Demo extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <div className={classes.toolBar}></div>
-        <button onClick={this.createNote}>New</button>
+        <div className={classes.toolBar}>
+          <div className={classes.iconPrimary}>
+            <FontAwesomeIcon icon={faPlus} onClick={this.createNote} />
+          </div>
+          <div className={classes.iconSecondary}>
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+          <div className={classes.iconSecondary}>
+            <Link to='/'><FontAwesomeIcon icon={faHome} /></Link>
+          </div>
+        </div>
         <NoteContainer notes={notes} handleSelect={this.handleSelect} handleDelete={this.handleDelete}/>
         <NoteContent title={note_title} content={note_content} handleChange={this.handleChange} handleSave={this.handleSave.bind(this, _id)}/>
       </div>
