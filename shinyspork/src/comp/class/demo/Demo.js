@@ -89,13 +89,11 @@ class Demo extends Component {
   }
 
   // handleDelete
-  handleDelete = e => {
+  handleDelete = (_id) => {
     const { notes } = this.state;
-    const { id }    = e.target.parentNode;
-    
     // loop through `this.state.notes`
     for (let note of notes) {
-      if (id === note._id) {
+      if (_id === note._id) {
         // delete note where the HTML `id` matches `note._id`
         this.updateNote(note._id, 'delete');
       }

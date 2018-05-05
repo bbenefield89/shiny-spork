@@ -35,10 +35,10 @@ const Note = (props) => {
   let { classes, handleSelect, handleDelete, id } = props;
   let { title } = props;
   return (
-    <div className={classes.root} id={ id }>
+    <div className={classes.root}>
       <div className={classes.title} onClick={handleSelect}>{Plain.serialize(Value.fromJSON(title))}</div>
       <div className={classes.icon}>
-        <FontAwesomeIcon icon={faTrash} onClick={handleDelete} />
+        <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(id)} />
       </div>
     </div>
   )
