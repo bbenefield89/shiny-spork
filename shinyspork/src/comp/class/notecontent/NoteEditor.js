@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
 
 import { Editor } from 'slate-react';
-
-const styles = {
-  root: {
-    backgroundColor: 'blue'
-  }, 
-}
 
 function MarkHotkey(options) {
   const { type, key } = options
@@ -55,16 +48,14 @@ class NoteEditor extends Component {
     }
   }
   render() {
-    let { classes, value } = this.props;
+    let { value } = this.props;
     return (
-      <div className={classes.root}>
-        <Editor 
-          plugins={plugins}
-          value={value} 
-          onChange={this.onChange}
-          renderMark={this.renderMark}
-        />
-      </div>
+      <Editor 
+        plugins={plugins}
+        value={value} 
+        onChange={this.onChange}
+        renderMark={this.renderMark}
+      />
     )
   }
 }
@@ -73,4 +64,4 @@ NoteEditor.propTypes = {
   value: PropTypes.object.isRequired,
 }
 
-export default injectSheet(styles)(NoteEditor);
+export default NoteEditor;
