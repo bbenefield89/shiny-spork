@@ -27,6 +27,7 @@ class Demo extends Component {
     }
     this.createNote = this.createNote.bind(this)
   }
+
   componentDidMount() {
     this.getNotes()
   }
@@ -50,8 +51,18 @@ class Demo extends Component {
     this.updateNote(_id, 'save')
   }
 
-  handleDelete = (_id) => {
-    this.updateNote(_id, 'delete')
+  // handleDelete
+  handleDelete = e => {
+    const { notes } = this.state;
+    const { id }    = e.target.parentNode;
+    
+    // loop through `this.state.notes`
+    for (let note of notes) {
+      if (id === note._id) {
+        // delete note where the HTML `id` matches `note._id`
+        this.updateNote(note._id, 'delete');
+      }
+    }
   }
 
   getNotes = () => {
@@ -95,7 +106,7 @@ class Demo extends Component {
     let req = {
       action: action,
       data: {
-        _id: this.state._id,
+        _id,
         note_title: this.state.note_title,
         note_content: this.state.note_content
       } 

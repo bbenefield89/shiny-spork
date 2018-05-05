@@ -10,10 +10,10 @@ const styles = {
 }
 
 const Note = (props) => {
-  let { classes, handleSelect, handleDelete } = props;
+  let { classes, handleSelect, handleDelete, id } = props;
   let { title } = props;
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id={ id }>
       <div onClick={handleSelect}>{Plain.serialize(Value.fromJSON(title))}</div>
       <div onClick={handleDelete}>X</div>
     </div>
