@@ -6,9 +6,6 @@ import Plain from 'slate-plain-serializer';
 
 const styles = {
   root: {
-    backgroundColor: 'red',
-    display: 'flex',
-    flexDirection: 'row'
   }, 
 }
 

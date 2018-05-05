@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import injectSheet from 'react-jss';
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
 
 // components
 import NoteContainer from '../notecontainer/NoteContainer.js';
 import NoteContent from '../notecontent/NoteContent.js';
+
+const styles = {
+  root: {
+    padding: '0.5rem',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'stretch',
+  }, 
+}
 
 class Demo extends Component {
   constructor(props) {
@@ -106,8 +116,10 @@ class Demo extends Component {
   }
   render() {
     let { notes, _id, note_title, note_content } = this.state;
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.root}>
+        <div className={classes.toolBar}></div>
         <button onClick={this.createNote}>New</button>
         <NoteContainer notes={notes} handleSelect={this.handleSelect} handleDelete={this.handleDelete}/>
         <NoteContent title={note_title} content={note_content} handleChange={this.handleChange} handleSave={this.handleSave.bind(this, _id)}/>
@@ -116,4 +128,4 @@ class Demo extends Component {
   }
 }
 
-export default Demo;
+export default injectSheet(styles)(Demo);
