@@ -4,21 +4,21 @@ import injectSheet from 'react-jss';
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
 
-const styles = {
-  root: {
-    backgroundColor: 'red',
-    display: 'flex',
-    flexDirection: 'row'
-  }, 
-}
+//icons
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+
+import styles from './styles/note';
 
 const Note = (props) => {
   let { classes, handleSelect, handleDelete, id } = props;
   let { title } = props;
   return (
-    <div className={classes.root} id={ id }>
-      <div onClick={handleSelect}>{Plain.serialize(Value.fromJSON(title))}</div>
-      <div onClick={handleDelete}>X</div>
+    <div className={classes.root}>
+      <div className={classes.title} onClick={handleSelect}>{Plain.serialize(Value.fromJSON(title))}</div>
+      <div className={classes.icon}>
+        <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(id)} />
+      </div>
     </div>
   )
 }

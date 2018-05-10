@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-import styles from './styles';
+
+// styles
+import styles from './styles/styles';
 
 const showButtons = true;
 const navLinks = [

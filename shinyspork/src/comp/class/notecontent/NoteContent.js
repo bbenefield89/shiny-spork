@@ -4,29 +4,35 @@ import injectSheet from 'react-jss';
 
 import NoteEditor from './NoteEditor';
 
-const styles = {
-  root: {
-    backgroundColor: 'blue'
-  }, 
-}
+// icons
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faSave from '@fortawesome/fontawesome-free-solid/faSave';
+
+// styles
+import styles from './styles/notecontent';
 
 class NoteContent extends Component {
   render() {
     let { title, content, classes } = this.props;
     return (
       <div className={classes.root}>
-        <NoteEditor
-          value={title}
-          type='title'
-          handleChange={({ value }) => this.props.handleChange({value}, 'note_title')}
-        />
-        <h3>Content:</h3>
-        <NoteEditor
-          value={content}
-          type='content'
-          handleChange={({ value }) => this.props.handleChange({value}, 'note_content')}
-        />
-        <button onClick={this.props.handleSave}>Save</button>
+        <div className={classes.title}>
+          <NoteEditor
+            value={title}
+            type='title'
+            handleChange={({ value }) => this.props.handleChange({value}, 'note_title')}
+          />
+          <div className={classes.iconSecondary}>
+            <FontAwesomeIcon icon={faSave} onClick={this.props.handleSave} />
+          </div>
+        </div>
+        <div className={classes.content}>
+          <NoteEditor
+            value={content}
+            type='content'
+            handleChange={({ value }) => this.props.handleChange({value}, 'note_content')}
+          />
+        </div>
       </div>
     )
   }

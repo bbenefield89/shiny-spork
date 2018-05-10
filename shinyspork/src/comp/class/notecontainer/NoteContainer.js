@@ -5,18 +5,15 @@ import injectSheet from 'react-jss';
 // Components
 import Note from './Note';
 
-const styles = {
-  root: {
-    backgroundColor: 'green'
-  },
-}
+// style
+import styles from './styles/notecontainer';
 
 class NoteContainer extends Component {
   render() {
-    const { notes, handleSelect, handleDelete } = this.props;
-
+    const { notes, handleSelect, handleDelete, classes } = this.props;
     return (
-      notes.map(note => (
+      <div className={classes.root}>
+      {notes.map(note => (
         <Note
           key={note._id}
           id={ note._id }
@@ -25,9 +22,10 @@ class NoteContainer extends Component {
           // handleDelete={handleDelete.bind(this, note._id)}
           handleDelete={ handleDelete }
         />
-      ))
-    );
-  };
+      ))}
+      </div>
+    )
+  }
 }
 
 NoteContainer.propTypes = {

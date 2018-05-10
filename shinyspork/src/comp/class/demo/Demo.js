@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import injectSheet from 'react-jss';
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
 
 // components
 import NoteContainer from '../notecontainer/NoteContainer.js';
 import NoteContent from '../notecontent/NoteContent.js';
+
+// icons
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
+
+import styles from './style/demo';
 
 class Demo extends Component {
   constructor(props) {
@@ -42,13 +52,11 @@ class Demo extends Component {
   }
 
   // handleDelete
-  handleDelete = e => {
+  handleDelete = (_id) => {
     const { notes } = this.state;
-    const { id }    = e.target.parentNode;
-    
     // loop through `this.state.notes`
     for (let note of notes) {
-      if (id === note._id) {
+      if (_id === note._id) {
         // delete note where the HTML `id` matches `note._id`
         this.updateNote(note._id, 'delete');
       }
@@ -117,9 +125,20 @@ class Demo extends Component {
   }
   render() {
     let { notes, _id, note_title, note_content } = this.state;
+    const { classes } = this.props;
     return (
-      <div>
-        <button onClick={this.createNote}>New</button>
+      <div className={classes.root}>
+        <div className={classes.toolBar}>
+          <div className={classes.iconPrimary}>
+            <FontAwesomeIcon icon={faPlus} onClick={this.createNote} />
+          </div>
+          <div className={classes.iconSecondary}>
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+          <div className={classes.iconSecondary}>
+            <Link to='/'><FontAwesomeIcon icon={faHome} /></Link>
+          </div>
+        </div>
         <NoteContainer notes={notes} handleSelect={this.handleSelect} handleDelete={this.handleDelete}/>
         <NoteContent title={note_title} content={note_content} handleChange={this.handleChange} handleSave={this.handleSave.bind(this, _id)}/>
       </div>
@@ -127,4 +146,4 @@ class Demo extends Component {
   }
 }
 
-export default Demo;
+export default injectSheet(styles)(Demo);
