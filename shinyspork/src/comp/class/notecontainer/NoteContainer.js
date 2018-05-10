@@ -19,7 +19,6 @@ class NoteContainer extends Component {
           id={ note._id }
           title={note.note_title}
           handleSelect={handleSelect.bind(this, note._id)}
-          // handleDelete={handleDelete.bind(this, note._id)}
           handleDelete={ handleDelete }
         />
       ))}
