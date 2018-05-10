@@ -5,13 +5,8 @@ import injectSheet from 'react-jss';
 // Components
 import Note from './Note';
 
-const styles = {
-  root: {
-    width: '30%',
-    padding: '1rem 1rem',
-    backgroundColor: '#f2f2f2',
-  },
-}
+// style
+import styles from './styles/notecontainer';
 
 class NoteContainer extends Component {
   render() {
